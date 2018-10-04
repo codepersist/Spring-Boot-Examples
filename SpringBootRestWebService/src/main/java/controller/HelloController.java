@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author rahulmehta
+ * @author rahul mehta
  *
  */
 @RestController
@@ -12,6 +12,6 @@ public class HelloController {
 
 	@RequestMapping("/hello")
 	public String hello() {
-		return "Welcome!! to SpringBootRestfulWebService tutorial.Let's get started..";
+		return "Welcome!! to SpringBootRestfulWebService tutorial. Let's get started..";
 	}
 }
