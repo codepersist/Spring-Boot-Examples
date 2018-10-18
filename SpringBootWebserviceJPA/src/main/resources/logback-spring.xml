@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	
+	<property name="LOGDIR" value="logs"></property>
+    <property name="APP_NAME" value="spring-boot-JPA"></property>
+    
+    <!-- Adding custom appenders and using below for logging -->
+	<appender name="TO-CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%d{MM:dd HH:mm:ss.SSS} [%t] [%level] [%logger{36}] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- Adding custom (Rolling type) appender and using below for logging -->
+	<appender name="TO-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<!--  <file>c:/JIP/ApplicationRolling.log</file> -->
+	<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+		<Pattern>%d{MM:dd HH:mm:ss.SSS} [%t] [%level] [%logger{36}] - %msg%n</Pattern>
+	</encoder>
+	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>${LOGDIR}/${APP_NAME}_%d{dd-MM-yyyy}.log</fileNamePattern>
+		<maxHistory>10</maxHistory>
+		<totalSizeCap>10KB</totalSizeCap>
+	</rollingPolicy>
+</appender>
+
+	<!-- Logging custom package -->
+	<!-- Using spring profiles to separate development & production grade logging -->
+	<springProfile name="dev,staging">
+	<logger name="controller" level="DEBUG" additivity="false">
+		<appender-ref ref="TO-CONSOLE"></appender-ref>
+		<appender-ref ref="TO-FILE"></appender-ref>
+	</logger>
+	</springProfile>
+	
+	<springProfile name="dev,staging">
+	<logger name="service" level="INFO" additivity="false">
+		<appender-ref ref="TO-CONSOLE"></appender-ref>
+		<appender-ref ref="TO-FILE"></appender-ref>
+	</logger>
+	</springProfile>
+	
+	<!-- Logging spring boot package -->
+	<springProfile name="production">
+	<logger name="org.springframework.boot" level="info" additivity="false">
+		<appender-ref ref="TO-CONSOLE"></appender-ref>
+		<appender-ref ref="TO-FILE"></appender-ref>
+	</logger>
+	</springProfile>
+
+	<root level="info">
+		<appender-ref ref="TO-CONSOLE"></appender-ref>
+	</root>
+</configuration>
