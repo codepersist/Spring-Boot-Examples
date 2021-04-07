@@ -1,0 +1,21 @@
+app:
+   name : My config app
+   description : Welcome to ${app.name}
+
+
+my:
+  greeting: Welcome to configuration example
+  list:
+      values: One,Two,Three,Four
+
+dbvalues : "{connectionString: 'https://___' , username: 'admin' , password:'password'}"
+
+db:
+  connection: "{connectionString: 'https://___' , username: 'admin' , password:'password'}"
+  host: 127.0.0.1
+  port: 1200
+
+spring:
+  profiles:
+    active:
+    - test
